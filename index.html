@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TinyTalk</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="./tinylogo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./tinylogo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./tinylogo.png">
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
@@ -179,8 +182,10 @@
       border-radius: 12px;
       padding: 15px;
       text-align: center;
-      cursor: pointer;
       transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      display: block;
+      color: inherit; /* Ensure text color is inherited */
     }
     .team-member:hover {
       transform: translateY(-5px);
@@ -206,21 +211,9 @@
     .team-member p {
       color: #666;
       margin: 5px 0;
-    }
-    .contact-info {
-      display: block;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease-out, margin-top 0.5s ease-out;
-      margin-top: 0;
-      padding-top: 0;
-      border-top: none;
-    }
-    .contact-info.active {
-      max-height: 100px;
-      margin-top: 15px;
-      padding-top: 15px;
-      border-top: 1px solid #e0e0e0;
+      word-break: break-all;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .contact-info p {
       margin: 5px 0;
@@ -323,9 +316,6 @@
         width: 80px;
         animation: pulse 2s infinite ease-in-out, float 3s infinite ease-in-out; /* Ensure combined animation on mobile */
       }
-      .contact-info.active {
-        max-height: 120px;
-      }
     }
 
     @media screen and (max-width: 480px) {
@@ -342,14 +332,14 @@
       .section p {
         font-size: 14px;
       }
-      .contact-info.active {
-        max-height: 150px;
-      }
       .decorative-image.top-right {
         animation: pulse 2s infinite ease-in-out, float 3s infinite ease-in-out; /* Ensure combined animation on mobile */
       }
       .decorative-image.bottom-left {
         animation: pulse 2s infinite ease-in-out, float 3s infinite ease-in-out; /* Ensure combined animation on mobile */
+      }
+      .section-title {
+        justify-content: center;
       }
       .section-title img {
         animation: pulse 1.5s infinite ease-in-out; /* Ensure pulse animation on mobile */
@@ -395,7 +385,7 @@
     <div class="section video-section">
       <div class="section-content">
         <div class="section-title">
-          <img src="./tiny_listening.png" alt="Wave" class="section-icon">
+          &nbsp;<img src="./tiny_listening.png" alt="Wave" class="section-icon">
           <h3>Watch Our Story</h3>
         </div>
         <div class="video-container">
@@ -422,56 +412,43 @@
           <h3>Our Team</h3>
         </div>
         <div class="team-grid">
-          <div class="team-member" onclick="toggleContact(this)">
+          <a href="https://www.linkedin.com/in/felnajjar/" target="_blank" class="team-member" rel="noopener noreferrer">
             <img src="./Fatima-Ahmed-2021-03178-Ahmed-Hossam.jpg" alt="Team Member 1">
             <h4>Fatima Al-Najjar </h4>
             <p>Project Lead</p>
-            <div class="contact-info">
-              <p><i class="fas fa-envelope"></i>fatima2103178@miuegypt.edu.eg</p>
-              <p><i class="fas fa-phone"></i> +201007241322 </p>
-            </div>
-          </div>
+            <p><i class="fas fa-envelope"></i>fatima2103178@miuegypt.edu.eg</p>
+            <p><i class="fas fa-phone"></i> +201007241322 </p>
+          </a>
 
-          <div class="team-member" onclick="toggleContact(this)">
+          <a href="https://www.linkedin.com/in/ahoss/" target="_blank" class="team-member" rel="noopener noreferrer">
             <img src="./Ahmed-Hossam-2021-04740-Ahmed-Hossam-2048x2048.png" alt="Team Member 2">
             <h4>Ahmed Hossam</h4>
             <p>Lead Developer</p>
-            <div class="contact-info">
-              <p><i class="fas fa-envelope"></i>ahmed2104740@miuegypt.edu.eg</p>
-              <p><i class="fas fa-phone"></i> +201555065166 </p>
-            </div>
-          </div>
+            <p><i class="fas fa-envelope"></i>ahmed2104740@miuegypt.edu.eg</p>
+            <p><i class="fas fa-phone"></i> +201555065166 </p>
+          </a>
 
-          <div class="team-member" onclick="toggleContact(this)">
+          <a href="https://www.linkedin.com/in/abdulrahman-sherif-19566b207/" target="_blank" class="team-member" rel="noopener noreferrer">
             <img src="./cropped-Abdelrahman-Sherif-2021-00536-Ahmed-Hossam.jpeg" alt="Team Member 3">
             <h4>Abdulrahman Sherif</h4>
             <p>Backend Developer</p>
-            <div class="contact-info">
-              <p><i class="fas fa-envelope"></i>abdelrahmansherif630@gmail.com</p>
-              <p><i class="fas fa-phone"></i> +201011895688 </p>
-            </div>
-          </div>
+            <p><i class="fas fa-envelope"></i>abdelrahmansherif630@gmail.com</p>
+            <p><i class="fas fa-phone"></i> +201011895688 </p>
+          </a>
 
-          <div class="team-member" onclick="toggleContact(this)">
+          <a href="https://www.linkedin.com/in/youssef-ehab-87b54627b" target="_blank" class="team-member" rel="noopener noreferrer">
             <img src="./Youssef-Ehab-2021-01700-Ahmed-Hossam-2048x2048.png" alt="Team Member 4">
             <h4>Youssef Ehab Ryad</h4>
             <p>Frontend Developer</p>
-            <div class="contact-info">
-              <p><i class="fas fa-envelope"></i>youssef2101700@miuegypt.edu.eg</p>
-              <p><i class="fas fa-phone"></i> +201221871161 </p>
-            </div>
-          </div>
+            <p><i class="fas fa-envelope"></i>youssef2101700@miuegypt.edu.eg</p>
+            <p><i class="fas fa-phone"></i> +201221871161 </p>
+          </a>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    function toggleContact(element) {
-      const contactInfo = element.querySelector('.contact-info');
-      contactInfo.classList.toggle('active');
-    }
-
     document.addEventListener('DOMContentLoaded', function() {
       const video = document.getElementById('marketingVideo');
       video.currentTime = 0;
