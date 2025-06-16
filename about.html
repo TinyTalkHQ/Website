@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TinyTalk</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      padding: 0;
+      margin: 0;
+      background-color: #eff5f4;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    /* Keyframe Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .container {
+      max-width: 1000px;
+      width: 100%;
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      animation: slideInUp 0.8s ease-out 0.2s forwards;
+      opacity: 0; /* Start invisible for animation */
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e0e0e0;
+      animation: fadeIn 1s ease-in-out 0.1s forwards; /* Header animation */
+      opacity: 0;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      animation: slideInUp 0.8s ease-out 0.3s forwards;
+      opacity: 0;
+    }
+    .logo {
+      height: 50px;
+      width: auto;
+      animation: pulse 1.5s infinite ease-in-out; /* Add pulse to logo */
+    }
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      color: #062c32;
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      letter-spacing: -0.5px;
+      animation: slideInUp 0.8s ease-out 0.4s forwards, pulse 1.5s infinite ease-in-out; /* Add pulse to h2 */
+      opacity: 0;
+    }
+    .section {
+      margin: 30px 0;
+      padding: 20px;
+      background-color: #fff;
+      border: 1.6px solid #e0e0e0;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.8s ease-out forwards; /* Apply animation to sections */
+      opacity: 0;
+    }
+    .section:nth-of-type(1) { animation-delay: 0.4s; }
+    .section:nth-of-type(2) { animation-delay: 0.6s; }
+    .section:nth-of-type(3) { animation-delay: 0.8s; }
+    .decorative-image {
+      position: absolute;
+      opacity: 0.15;
+      z-index: 0;
+      animation: pulse 2s infinite ease-in-out, float 3s infinite ease-in-out; /* Combine pulse and float */
+    }
+    .decorative-image.top-right {
+      top: 20px;
+      right: 20px;
+      width: 150px;
+      height: auto;
+      animation: pulse 2s infinite ease-in-out, float 3s infinite ease-in-out; /* Ensure combined animation on mobile */
+    }
+    .decorative-image.bottom-left {
+      bottom: 20px;
+      left: 20px;
+      width: 120px;
+      height: auto;
+      animation: pulse 2s infinite ease-in-out, float 3s infinite ease-in-out; /* Ensure combined animation on mobile */
+    }
+    .section-content {
+      position: relative;
+      z-index: 1;
+    }
+    .team-member {
+      position: relative;
+      overflow: hidden;
+    }
+    .team-member::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+      background-image: url('./wave.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.2;
+      z-index: 0;
+    }
+    .team-member:hover::before {
+      opacity: 0.4;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .section-title img {
+      width: 40px;
+      height: 40px;
+      animation: pulse 1.5s infinite ease-in-out; /* Add pulse animation to section title icons */
+    }
+    .section h3 {
+      color: #062c32;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+    .section p {
+      color: #434343;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    .video-section {
+      padding: 0; /* Remove padding from video section */
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .team-member {
+      background-color: #fff;
+      border: 1.6px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .team-member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    .team-member img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border: 3px solid #b2dad2;
+      transition: transform 0.3s ease-out;
+    }
+    .team-member img:hover {
+      transform: scale(1.05); /* Scale up on hover */
+    }
+    .team-member h4 {
+      color: #062c32;
+      margin: 10px 0;
+      font-size: 18px;
+    }
+    .team-member p {
+      color: #666;
+      margin: 5px 0;
+    }
+    .contact-info {
+      display: block;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-out, margin-top 0.5s ease-out;
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+    .contact-info.active {
+      max-height: 100px;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #e0e0e0;
+    }
+    .contact-info p {
+      margin: 5px 0;
+      color: #434343;
+      word-break: break-all;
+    }
+    .contact-info i {
+      color: #062c32;
+      margin-right: 10px;
+    }
+    .back-btn {
+      padding: 14px 20px;
+      font-size: 16px;
+      font-family: 'Quicksand', sans-serif;
+      background-color: #b2dad2;
+      color: #062c32;
+      border: 1.6px solid #91bbb3;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-weight: bold;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .back-btn:hover {
+      background-color: #a0c8c0;
+    }
+    .video-container {
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    .video-container video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Mobile Responsive Styles */
+    @media screen and (max-width: 768px) {
+      .container {
+        margin: 10px;
+        padding: 15px;
+        animation: slideInUp 0.8s ease-out 0.1s forwards; /* Adjust animation delay for mobile */
+      }
+      .header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        animation: fadeIn 1s ease-in-out 0.05s forwards;
+      }
+      .logo-container {
+        justify-content: center;
+        animation: slideInUp 0.8s ease-out 0.1s forwards;
+      }
+      .logo {
+        height: 40px;
+        animation: pulse 1.5s infinite ease-in-out; /* Ensure pulse on mobile */
+      }
+      h2 {
+        font-size: 20px;
+        animation: slideInUp 0.8s ease-out 0.2s forwards, pulse 1.5s infinite ease-in-out; /* Ensure pulse on mobile */
+      }
+      .section {
+        padding: 15px;
+        animation: fadeIn 0.8s ease-out forwards; /* Ensure sections animate on mobile */
+      }
+      .section:nth-of-type(1) { animation-delay: 0.2s; }
+      .section:nth-of-type(2) { animation-delay: 0.3s; }
+      .section:nth-of-type(3) { animation-delay: 0.4s; }
+      .section-title {
+        justify-content: center;
+      }
+      .section-title img {
+        width: 30px;
+        height: 30px;
+        animation: pulse 1.5s infinite ease-in-out; /* Ensure pulse animation on mobile */
+      }
+      .video-container {
+        max-width: 100%;
+      }
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+      .team-member {
+        padding: 10px;
+      }
+      .team-member img {
+        width: 100px;
+        height: 100px;
+      }
+      .decorative-image.top-right {
+        width: 100px;
+        animation: pulse 2s infinite ease-in-out, float 3s infinite ease-in-out; /* Ensure combined animation on mobile */
+      }
+      .decorative-image.bottom-left {
+        width: 80px;
+        animation: pulse 2s infinite ease-in-out, float 3s infinite ease-in-out; /* Ensure combined animation on mobile */
+      }
+      .contact-info.active {
+        max-height: 120px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+      .team-member img {
+        width: 120px;
+        height: 120px;
+      }
+      .section h3 {
+        font-size: 18px;
+      }
+      .section p {
+        font-size: 14px;
+      }
+      .contact-info.active {
+        max-height: 150px;
+      }
+      .decorative-image.top-right {
+        animation: pulse 2s infinite ease-in-out, float 3s infinite ease-in-out; /* Ensure combined animation on mobile */
+      }
+      .decorative-image.bottom-left {
+        animation: pulse 2s infinite ease-in-out, float 3s infinite ease-in-out; /* Ensure combined animation on mobile */
+      }
+      .section-title img {
+        animation: pulse 1.5s infinite ease-in-out; /* Ensure pulse animation on mobile */
+      }
+      h2 {
+        animation: slideInUp 0.8s ease-out 0.2s forwards, pulse 1.5s infinite ease-in-out; /* Ensure pulse on mobile */
+      }
+    }
+
+    /* Ensure video is responsive */
+    .video-container {
+      width: 100%;
+    }
+
+    .video-container video {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo-container">
+        <img src="./tinylogo.png" alt="App Logo" class="logo">
+        <h2>tinytalk</h2>
+      </div>
+    </div>
+
+    <div class="section">
+      <img src="./tiny_cheer.png" alt="Cheer" class="decorative-image top-right">
+      <img src="./tiny_read.png" alt="Listening" class="decorative-image bottom-left">
+      <div class="section-content">
+        <div class="section-title">
+          <img src="./tiny_wave.png" alt="Wave" class="section-icon">
+          <h3>About The Project</h3>
+        </div>
+        <p>TinyTalk is an AI-powered speech therapy assistant designed to help children overcome speech challenges through real-time analysis, personalized exercises, and gamified learning. We empower therapists with data-driven insights and make therapy engaging and accessible for kids and parents alike.</p>
+        <p>The system features a secure authentication system, real-time case management, and an intuitive interface that makes healthcare management more accessible and efficient for everyone involved.</p>
+      </div>
+    </div>
+
+    <div class="section video-section">
+      <div class="section-content">
+        <div class="section-title">
+          <img src="./tiny_listening.png" alt="Wave" class="section-icon">
+          <h3>Watch Our Story</h3>
+        </div>
+        <div class="video-container">
+          <video 
+            autoplay 
+            muted 
+            loop 
+            playsinline
+            preload="auto"
+            id="marketingVideo"
+          >
+            <source src="marketing_video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <img src="./tiny_wave.png" alt="Cheer" class="decorative-image top-right">
+      <div class="section-content">
+        <div class="section-title">
+          <img src="./tiny_cheer.png" alt="Wave" class="section-icon">
+          <h3>Our Team</h3>
+        </div>
+        <div class="team-grid">
+          <div class="team-member" onclick="toggleContact(this)">
+            <img src="./Fatima-Ahmed-2021-03178-Ahmed-Hossam.jpg" alt="Team Member 1">
+            <h4>Fatima Al-Najjar </h4>
+            <p>Project Lead</p>
+            <div class="contact-info">
+              <p><i class="fas fa-envelope"></i>fatima2103178@miuegypt.edu.eg</p>
+              <p><i class="fas fa-phone"></i> +201007241322 </p>
+            </div>
+          </div>
+
+          <div class="team-member" onclick="toggleContact(this)">
+            <img src="./Ahmed-Hossam-2021-04740-Ahmed-Hossam-2048x2048.png" alt="Team Member 2">
+            <h4>Ahmed Hossam</h4>
+            <p>Lead Developer</p>
+            <div class="contact-info">
+              <p><i class="fas fa-envelope"></i>ahmed2104740@miuegypt.edu.eg</p>
+              <p><i class="fas fa-phone"></i> +201555065166 </p>
+            </div>
+          </div>
+
+          <div class="team-member" onclick="toggleContact(this)">
+            <img src="./cropped-Abdelrahman-Sherif-2021-00536-Ahmed-Hossam.jpeg" alt="Team Member 3">
+            <h4>Abdulrahman Sherif</h4>
+            <p>Backend Developer</p>
+            <div class="contact-info">
+              <p><i class="fas fa-envelope"></i>abdelrahmansherif630@gmail.com</p>
+              <p><i class="fas fa-phone"></i> +201011895688 </p>
+            </div>
+          </div>
+
+          <div class="team-member" onclick="toggleContact(this)">
+            <img src="./Youssef-Ehab-2021-01700-Ahmed-Hossam-2048x2048.png" alt="Team Member 4">
+            <h4>Youssef Ehab Ryad</h4>
+            <p>Frontend Developer</p>
+            <div class="contact-info">
+              <p><i class="fas fa-envelope"></i>youssef2101700@miuegypt.edu.eg</p>
+              <p><i class="fas fa-phone"></i> +201221871161 </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleContact(element) {
+      const contactInfo = element.querySelector('.contact-info');
+      contactInfo.classList.toggle('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.getElementById('marketingVideo');
+      video.currentTime = 0;
+      video.play();
+    });
+  </script>
+</body>
+</html> 
