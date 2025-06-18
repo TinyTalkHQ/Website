@@ -394,6 +394,7 @@
             playsinline
             preload="auto"
             controls
+            muted
             id="marketingVideo"
           >
             <source src="marketing_video.mp4" type="video/mp4">
@@ -443,7 +444,12 @@
     document.addEventListener('DOMContentLoaded', function() {
       const video = document.getElementById('marketingVideo');
       video.currentTime = 0;
-      video.play();
+      
+      // Auto-play the video when page loads (keep muted for consistent autoplay)
+      video.play().catch(function(error) {
+        console.log("Auto-play was prevented:", error);
+        // Fallback: show a play button or message if autoplay is blocked
+      });
     });
   </script>
 </body>
